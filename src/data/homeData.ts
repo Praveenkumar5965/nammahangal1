@@ -1,4 +1,3 @@
-
 import { ReactNode } from 'react';
 
 // Shopping Categories
@@ -15,10 +14,10 @@ export const shoppingCategories = [
 
 // Featured products by category
 export const featuredProducts = [
-  { id: '1', name: 'Fresh Tomatoes', price: 40, unit: 'kg', image: 'https://images.unsplash.com/photo-1607305387299-a3d9611cd469?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dG9tYXRvfGVufDB8fDB8fHww', rating: 4.5, ratingCount: 245 },
-  { id: '2', name: 'Rice (Premium)', price: 60, unit: 'kg', image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cmljZXxlbnwwfHwwfHx8MA%3D%3D', rating: 4.8, ratingCount: 120 },
-  { id: '3', name: 'Cotton T-Shirt', price: 299, unit: 'piece', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dHNoaXJ0fGVufDB8fDB8fHww', rating: 4.2, ratingCount: 89 },
-  { id: '4', name: 'Smartphone', price: 12999, unit: 'piece', image: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3', rating: 4.7, ratingCount: 315 },
+  { id: '1', name: 'Fresh Tomatoes', price: 40, unit: 'kg', image: 'https://images.unsplash.com/photo-1607305387299-a3d9611cd469?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dG9tYXRvfGVufDB8fDB8fHww', rating: 4.5, ratingCount: 245, categoryId: 'vegetables' },
+  { id: '2', name: 'Rice (Premium)', price: 60, unit: 'kg', image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cmljZXxlbnwwfHwwfHx8MA%3D%3D', rating: 4.8, ratingCount: 120, categoryId: 'groceries' },
+  { id: '3', name: 'Cotton T-Shirt', price: 299, unit: 'piece', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dHNoaXJ0fGVufDB8fDB8fHww', rating: 4.2, ratingCount: 89, categoryId: 'clothes' },
+  { id: '4', name: 'Smartphone', price: 12999, unit: 'piece', image: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3', rating: 4.7, ratingCount: 315, categoryId: 'electronics' },
 ];
 
 // Services

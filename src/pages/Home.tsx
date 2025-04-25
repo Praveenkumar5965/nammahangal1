@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MobileLayout from '@/components/layout/MobileLayout';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
@@ -19,7 +19,7 @@ import {
 
 const Home = () => {
   const navigate = useNavigate();
-  
+
   // Mock data for promotions/banners
   const promotions = [
     { id: '1', image: 'https://images.unsplash.com/photo-1607082350899-7e105aa886ae?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3', title: 'Summer Sale' },
@@ -27,7 +27,7 @@ const Home = () => {
     { id: '3', image: 'https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3', title: 'Special Offers' },
   ];
   
-  // Quick action buttons - modified as per request
+  // Quick action buttons
   const quickActions = [
     { id: 'offers', name: 'Offers', icon: '🏷️', path: '/offers' },
     { id: 'topDeals', name: 'Top Deals', icon: '🔥', path: '/deals' },
@@ -44,18 +44,9 @@ const Home = () => {
   // Get location from localStorage
   const district = localStorage.getItem('district');
   const subDistrict = localStorage.getItem('subDistrict');
-  
-  // Format location display
-  const getLocationDisplay = () => {
-    if (subDistrict) {
-      const subDistName = subDistrictMap[district || '']?.find(
-        sd => sd.id === subDistrict
-      )?.name;
-      return subDistName || 'Your Location';
-    }
-    return 'Your Location';
-  };
-  
+  const userAddress = localStorage.getItem('userAddress');
+
+  // Location name map
   const subDistrictMap: Record<string, { id: string; name: string }[]> = {
     haveri: [
       { id: 'hangal', name: 'Hangal' },
@@ -71,8 +62,25 @@ const Home = () => {
     ]
   };
 
+  // Get current subdistrict display name (location_name)
+  const getLocationDisplay = () => {
+    if (subDistrict) {
+      const subDistName = subDistrictMap[district || '']?.find(
+        sd => sd.id === subDistrict
+      )?.name;
+      return subDistName || 'Your Location';
+    }
+    return 'Your Location';
+  };
+
+  // Get the "Namma*location*App" string
+  const getNammaLocationAppName = () => {
+    const location = getLocationDisplay();
+    return `Namma${location.replace(/\s+/g, '')}App`;
+  };
+
   const { translations } = useLanguage();
-  
+
   const handleSearch = (query: string) => {
     navigate(`/categories?search=${encodeURIComponent(query)}`);
   };
@@ -82,6 +90,7 @@ const Home = () => {
       <div className="p-4 pb-20">
         {/* App Header */}
         <div className="text-center mb-6">
+          {/* App name with Namaste images */}
           <div className="flex items-center justify-center gap-4 mb-2">
             <img 
               src="/lovable-uploads/c7f52d88-f425-4c46-8820-2dca79645825.png" 
@@ -97,27 +106,35 @@ const Home = () => {
               className="w-16 h-16 object-contain transform scale-x-[-1]"
             />
           </div>
-          <h2 className="text-sm text-muted-foreground font-stylish">
-            Namma{getLocationDisplay()}App
-          </h2>
+          {/* Namma*location*App below App Name */}
+          <div className="text-lg font-stylish font-semibold text-primary mb-1">
+            {getNammaLocationAppName()}
+          </div>
+          {/* Location and Address BELOW "Namma*location*App" */}
+          <div className="flex items-center justify-center gap-2 text-muted-foreground text-xs font-stylish mb-2">
+            <AddressDialog currentLocation={getLocationDisplay()}>
+              <div className="flex items-center cursor-pointer hover:text-primary transition-colors max-w-xs">
+                <MapPin size={16} className="text-primary mr-1" />
+                <span className="font-medium">{getLocationDisplay()}</span>
+                {userAddress && (
+                  <>
+                    <span className="mx-1">|</span>
+                    <span className="truncate max-w-[140px]">{userAddress}</span>
+                  </>
+                )}
+              </div>
+            </AddressDialog>
+          </div>
         </div>
-
-        {/* Location and Search */}
-        <div className="flex items-center mb-4">
-          <AddressDialog currentLocation={getLocationDisplay()}>
-            <div className="flex items-center flex-1 cursor-pointer hover:text-primary transition-colors">
-              <MapPin size={18} className="text-primary mr-1" />
-              <span className="text-sm font-medium truncate">{getLocationDisplay()}</span>
-            </div>
-          </AddressDialog>
-          <div className="relative w-3/4">
+        {/* Search bar below header and location/address */}
+        <div className="mb-4">
+          <div className="relative w-full">
             <SearchBar 
               placeholder={translations['search.placeholder']}
               onSearch={handleSearch}
             />
           </div>
         </div>
-
         {/* Promotional Carousel */}
         <div className="mb-6">
           <Carousel className="w-full">
@@ -147,7 +164,11 @@ const Home = () => {
               <button
                 key={category.id}
                 className="flex flex-col items-center justify-center p-4"
-                onClick={() => navigate(`/${category.id}`)}
+                onClick={() => {
+                  if (category.id === "shopping") navigate("/shopping");
+                  else if (category.id === "services") navigate("/services");
+                  else if (category.id === "news") navigate("/news");
+                }}
               >
                 <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-2">
                   {category.icon}
@@ -157,8 +178,6 @@ const Home = () => {
             ))}
           </div>
         </div>
-
-        {/* Quick Action Buttons */}
         <div className="mb-6">
           <div className="grid grid-cols-3 gap-3">
             {quickActions.map((action) => (
@@ -173,17 +192,11 @@ const Home = () => {
             ))}
           </div>
         </div>
-
-        {/* Shopping Section */}
         <ShoppingSection 
           categories={shoppingCategories}
           featuredProducts={featuredProducts}
         />
-        
-        {/* Services Section */}
         <ServicesSection services={services} />
-        
-        {/* Local News Section */}
         <LocalNewsSection newsItems={localNews} />
       </div>
     </MobileLayout>
@@ -191,3 +204,4 @@ const Home = () => {
 };
 
 export default Home;
+
