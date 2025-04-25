@@ -1,0 +1,85 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    /* Namma Hangal Theme Colors */
+    --primary: 211 100% 50%; /* Blue #007AFF */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 0 0% 100%; /* White */
+    --secondary-foreground: 0 0% 0%;
+    
+    --accent: 142 70% 49%; /* Green #34C759 */
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 0 0% 98%;
+    --muted-foreground: 0 0% 40%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 211 100% 50%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+  
+  h1 {
+    @apply text-xl; /* 18px as per requirement */
+  }
+  
+  body {
+    @apply text-sm; /* 14px as per requirement */
+  }
+}
+
+/* Custom scrollbar for mobile app feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+}
+
+/* Mobile app specific styles */
+.mobile-screen {
+  max-width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}

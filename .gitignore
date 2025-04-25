@@ -1,0 +1,14 @@
+# Dependency directories
+node_modules/
+dist/
+.capacitor/
+
+# Logs and environment files
+*.log
+.env
+
+# Android Studio files
+android/.gradle/
+android/.idea/
+android/app/build/
+android/build/
